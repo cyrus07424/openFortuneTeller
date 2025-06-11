@@ -1,0 +1,105 @@
+@*
+* This template displays the fortune telling results.
+*@
+@(birthDate: String, birthTime: String, prefecture: String, gender: String, fortuneData: Map[String, Map[String, String]])(implicit assetsFinder: AssetsFinder)
+
+@*
+ * Call the `main` template with the title and content.
+ *@
+@main("占い結果 - 四柱推命占い") {
+
+    <div class="header">
+        <div class="container">
+            <h1>あなたの運勢</h1>
+            <p>今後1週間の運勢をお伝えします</p>
+        </div>
+    </div>
+
+    <div class="container main-container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                
+                <!-- 基本情報 -->
+                <div class="results-card">
+                    <h3 class="mb-3">基本情報</h3>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>生年月日:</strong><br>
+                            @birthDate
+                        </div>
+                        <div class="col-md-3">
+                            <strong>出生時刻:</strong><br>
+                            @if(birthTime.nonEmpty) { @birthTime } else { 不明 }
+                        </div>
+                        <div class="col-md-3">
+                            <strong>出生地:</strong><br>
+                            @prefecture
+                        </div>
+                        <div class="col-md-3">
+                            <strong>性別:</strong><br>
+                            @if(gender == "male") { 男性 } else { 女性 }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 週間運勢 -->
+                <div class="results-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3>週間運勢</h3>
+                        <button id="printBtn" class="btn btn-outline-secondary no-print">
+                            <i class="bi bi-printer"></i>
+                            印刷する
+                        </button>
+                    </div>
+                    
+                    @for((day, fortune) <- fortuneData) {
+                        <div class="fortune-day">
+                            <h5>@day</h5>
+                            <div class="fortune-rating rating-@{fortune.get("rating")}">
+                                @{fortune.get("ratingText")}
+                            </div>
+                            <p class="mb-2">
+                                <strong>全体運:</strong> @{fortune.get("overall")}
+                            </p>
+                            <p class="mb-2">
+                                <strong>恋愛運:</strong> @{fortune.get("love")}
+                            </p>
+                            <p class="mb-2">
+                                <strong>仕事運:</strong> @{fortune.get("work")}
+                            </p>
+                            <p class="mb-0">
+                                <strong>健康運:</strong> @{fortune.get("health")}
+                            </p>
+                        </div>
+                    }
+                </div>
+
+                <!-- アドバイス -->
+                <div class="results-card">
+                    <h3 class="mb-3">今週のアドバイス</h3>
+                    <div class="alert alert-info">
+                        <i class="bi bi-lightbulb"></i>
+                        この週は全体的に安定した運気が続きます。新しいことに挑戦するよりも、
+                        今やっていることを着実に進めることで良い結果が得られるでしょう。
+                        健康面では規則正しい生活を心がけ、人間関係では誠実な対応を大切にしてください。
+                    </div>
+                </div>
+
+                <!-- 戻るボタン -->
+                <div class="text-center no-print">
+                    <a href="@routes.HomeController.index" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left"></i>
+                        新しく占う
+                    </a>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        ※ この占い結果は娯楽目的です。重要な決定には参考程度にとどめてください。
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
