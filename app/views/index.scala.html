@@ -23,7 +23,7 @@
                         <h3>基本情報を入力してください</h3>
                         
                         <form action="@routes.HomeController.fortune()" method="post">
-                            @helper.CSRF.formField(request)
+                            @helper.CSRF.formField
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="birthDate" class="form-label">生年月日 <span class="text-danger">*</span></label>
