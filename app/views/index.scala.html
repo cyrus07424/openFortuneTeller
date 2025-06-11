@@ -1,7 +1,7 @@
 @*
 * This template creates the fortune telling input form.
 *@
-@(message: String)(implicit assetsFinder: AssetsFinder)
+@(message: String)(implicit request: play.mvc.Http.Request, assetsFinder: AssetsFinder)
 
 @*
  * Call the `main` template with the title and content.
@@ -23,6 +23,7 @@
                         <h3>基本情報を入力してください</h3>
                         
                         <form action="@routes.HomeController.fortune()" method="post">
+                            @helper.CSRF.formField(request)
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="birthDate" class="form-label">生年月日 <span class="text-danger">*</span></label>

@@ -3,7 +3,7 @@
 # ~~~~
 
 # Fortune teller home page
-GET     /                        controllers.HomeController.index
+GET     /                        controllers.HomeController.index(request: Request)
 # Fortune teller results
 POST    /fortune                 controllers.HomeController.fortune(request: Request)
 

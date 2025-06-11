@@ -28,10 +28,11 @@ public class HomeController extends Controller {
     /**
      * An action that renders the fortune telling input form.
      */
-    public Result index() {
+    public Result index(Http.Request request) {
         return ok(
             index.render(
                 "四柱推命占いシステムへようこそ",
+                request,
                 assetsFinder
             ));
     }
@@ -43,7 +44,7 @@ public class HomeController extends Controller {
         Form<FortuneData> form = formFactory.form(FortuneData.class).bindFromRequest(request);
         
         if (form.hasErrors()) {
-            return badRequest(index.render("入力内容に誤りがあります", assetsFinder));
+            return badRequest(index.render("入力内容に誤りがあります", request, assetsFinder));
         }
         
         FortuneData data = form.get();
