@@ -20,8 +20,8 @@ public class FunctionalTest extends WithApplication {
 
         AssetsFinder assetsFinder = provideApplication().injector().instanceOf(AssetsFinder.class);
 
-        Content html = views.html.index.render("Your new application is ready.", assetsFinder);
+        Content html = views.html.index.render("四柱推命占いシステムへようこそ", assetsFinder);
         assertThat("text/html").isEqualTo(html.contentType());
-        assertThat(html.body()).contains("Your new application is ready.");
+        assertThat(html.body()).contains("四柱推命占い");
     }
 }
