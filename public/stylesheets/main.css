@@ -121,9 +121,75 @@ body {
     }
 }
 
+/* Fortune type cards */
+.fortune-type-card {
+    transition: transform 0.2s;
+    height: 100%;
+}
+
+.fortune-type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.fortune-type-card .card-body {
+    padding: 2rem;
+}
+
+.fortune-type-card .display-4 {
+    font-size: 3rem;
+}
+
+/* Stroke info styling */
+.stroke-info {
+    text-align: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.stroke-info h5 {
+    color: #495057;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.stroke-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #28a745;
+    margin: 0.5rem 0;
+}
+
+.stroke-info small {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+/* Fortune category styling */
+.fortune-category {
+    border-left: 4px solid #28a745;
+    padding-left: 1rem;
+}
+
+.fortune-category h5 {
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.fortune-category i {
+    margin-right: 0.5rem;
+}
+
 /* Button styling */
 .btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
     border: none;
     padding: 0.75rem 2rem;
     font-size: 1.1rem;
