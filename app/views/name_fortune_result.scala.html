@@ -1,0 +1,153 @@
+@*
+* This template displays the name fortune results.
+*@
+@(familyName: String, givenName: String, gender: String, fortuneData: Map[String, String])(implicit assetsFinder: AssetsFinder)
+
+@*
+ * Call the `main` template with the title and content.
+ *@
+@main("姓名判断結果 - オープン占いシステム") {
+
+    <div class="header">
+        <div class="container">
+            <h1>姓名判断結果</h1>
+            <p>お名前の画数から占った運勢をお伝えします</p>
+        </div>
+    </div>
+
+    <div class="container main-container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                
+                <!-- 基本情報 -->
+                <div class="results-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3>基本情報</h3>
+                        <button id="printBtn" class="btn btn-outline-secondary no-print">
+                            <i class="bi bi-printer"></i>
+                            印刷する
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>お名前:</strong><br>
+                            @familyName @givenName
+                        </div>
+                        <div class="col-md-3">
+                            <strong>性別:</strong><br>
+                            @if(gender == "male") { 男性 } else { 女性 }
+                        </div>
+                        <div class="col-md-3">
+                            <strong>姓の画数:</strong><br>
+                            @{fortuneData.get("familyNameStrokes")} 画
+                        </div>
+                        <div class="col-md-3">
+                            <strong>名の画数:</strong><br>
+                            @{fortuneData.get("givenNameStrokes")} 画
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 画数構成 -->
+                <div class="results-card">
+                    <h3 class="mb-3">画数構成</h3>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <div class="stroke-info">
+                                <h5>天格</h5>
+                                <div class="stroke-number">@{fortuneData.get("tenKaku")}</div>
+                                <small>姓の画数の合計</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="stroke-info">
+                                <h5>人格</h5>
+                                <div class="stroke-number">@{fortuneData.get("jinKaku")}</div>
+                                <small>姓の末字＋名の初字</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="stroke-info">
+                                <h5>地格</h5>
+                                <div class="stroke-number">@{fortuneData.get("chiKaku")}</div>
+                                <small>名の画数の合計</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="stroke-info">
+                                <h5>総格</h5>
+                                <div class="stroke-number">@{fortuneData.get("soKaku")}</div>
+                                <small>姓名全体の画数</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 運勢診断 -->
+                <div class="results-card">
+                    <h3 class="mb-3">運勢診断</h3>
+                    
+                    <div class="fortune-category mb-4">
+                        <h5><i class="bi bi-star-fill text-warning"></i> 総合運</h5>
+                        <div class="fortune-rating rating-@{fortuneData.get("overallRating")}">
+                            @{fortuneData.get("overallRatingText")}
+                        </div>
+                        <p>@{fortuneData.get("overallFortune")}</p>
+                    </div>
+                    
+                    <div class="fortune-category mb-4">
+                        <h5><i class="bi bi-heart-fill text-danger"></i> 恋愛運</h5>
+                        <div class="fortune-rating rating-@{fortuneData.get("loveRating")}">
+                            @{fortuneData.get("loveRatingText")}
+                        </div>
+                        <p>@{fortuneData.get("loveFortune")}</p>
+                    </div>
+                    
+                    <div class="fortune-category mb-4">
+                        <h5><i class="bi bi-briefcase-fill text-primary"></i> 仕事運</h5>
+                        <div class="fortune-rating rating-@{fortuneData.get("workRating")}">
+                            @{fortuneData.get("workRatingText")}
+                        </div>
+                        <p>@{fortuneData.get("workFortune")}</p>
+                    </div>
+                    
+                    <div class="fortune-category mb-4">
+                        <h5><i class="bi bi-heart-pulse-fill text-success"></i> 健康運</h5>
+                        <div class="fortune-rating rating-@{fortuneData.get("healthRating")}">
+                            @{fortuneData.get("healthRatingText")}
+                        </div>
+                        <p>@{fortuneData.get("healthFortune")}</p>
+                    </div>
+                </div>
+
+                <!-- アドバイス -->
+                <div class="results-card">
+                    <h3 class="mb-3">姓名からのアドバイス</h3>
+                    <div class="alert alert-info">
+                        <i class="bi bi-lightbulb"></i>
+                        @{fortuneData.get("advice")}
+                    </div>
+                </div>
+
+                <!-- 戻るボタン -->
+                <div class="text-center no-print">
+                    <a href="@routes.HomeController.nameFortuneInput()" class="btn btn-outline-success me-2">
+                        <i class="bi bi-arrow-left"></i>
+                        別の名前で占う
+                    </a>
+                    <a href="@routes.HomeController.index()" class="btn btn-outline-primary">
+                        <i class="bi bi-house"></i>
+                        トップに戻る
+                    </a>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        ※ この占い結果は娯楽目的です。重要な決定には参考程度にとどめてください。
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

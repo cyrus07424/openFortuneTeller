@@ -1,0 +1,90 @@
+@*
+* This template creates the name fortune input form.
+*@
+@(message: String)(implicit request: play.mvc.Http.Request, assetsFinder: AssetsFinder)
+
+@*
+ * Call the `main` template with the title and content.
+ *@
+@main("姓名判断 - オープン占いシステム") {
+
+    <div class="header">
+        <div class="container">
+            <h1>姓名判断</h1>
+            <p>お名前の画数から運勢を占います</p>
+        </div>
+    </div>
+
+    <div class="container main-container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="form-card">
+                    <div class="form-section">
+                        <h3>お名前を入力してください</h3>
+                        
+                        <form action="@routes.HomeController.nameFortune()" method="post">
+                            @helper.CSRF.formField
+                            <div class="row justify-content-center">
+                                <div class="col-md-5 mb-3">
+                                    <label for="familyName" class="form-label">姓（苗字） <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-center" id="familyName" name="familyName" 
+                                           placeholder="例: 田中" required maxlength="10">
+                                    <div class="form-text">ひらがな、カタカナ、漢字で入力してください</div>
+                                </div>
+                                
+                                <div class="col-md-5 mb-3">
+                                    <label for="givenName" class="form-label">名（名前） <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control text-center" id="givenName" name="givenName" 
+                                           placeholder="例: 太郎" required maxlength="10">
+                                    <div class="form-text">ひらがな、カタカナ、漢字で入力してください</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row justify-content-center mb-3">
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label">性別 <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="gender" name="gender" required>
+                                        <option value="">選択してください</option>
+                                        <option value="male">男性</option>
+                                        <option value="female">女性</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="bi bi-pen"></i>
+                                    姓名判断を行う
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="mt-4">
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle"></i>
+                                <strong>画数について：</strong>
+                                姓名判断では文字の画数が重要です。旧字体や異体字がある場合は、
+                                一般的に使用される字体で入力してください。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 戻るボタン -->
+                <div class="text-center mb-3">
+                    <a href="@routes.HomeController.index()" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i>
+                        占い選択に戻る
+                    </a>
+                </div>
+                
+                <div class="text-center">
+                    <small class="text-muted">
+                        ※ この占い結果は娯楽目的です。重要な決定には参考程度にとどめてください。
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
